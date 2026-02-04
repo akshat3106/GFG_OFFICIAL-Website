@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  /* Metric-Prime Professional Theme */
+  /* Backgrounds: Deep, Solid, Professional */
+  --background: 240 10% 3.9%;
+  /* Very deep slate/black */
+  --foreground: 0 0% 98%;
+
+  --card: 240 10% 5%;
+  /* Slightly lighter than bg */
+  --card-foreground: 0 0% 98%;
+
+  --popover: 240 10% 5%;
+  --popover-foreground: 0 0% 98%;
+
+  /* Primary: GFG Green - Sharp and Professional */
+  --primary: 142 76% 36%;
+  /* Solid GFG Green */
+  --primary-foreground: 355.7 100% 97.3%;
+
+  /* Secondary: Tech/Structural Gray */
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+
+  /* Muted: Subtle guidance info */
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+
+  /* Accent: Interactive states */
+  --accent: 240 4% 20%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* Borders: Crisp, thin lines */
+  --border: 240 4% 20%;
+  --input: 240 4% 20%;
+  --ring: 142 76% 36%;
+
+  --radius: 0.25rem;
+  /* Sharp, small radius for technical feel */
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    /* Metric Grid Background */
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Metric-Prime Utilities */
+
+/* 1. Tech Card - Flat, Bordered, Precise */
+.tech-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Corner markers for tech look */
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--primary));
+  z-index: 10;
+}
+
+.tech-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--primary));
+  /* or muted */
+  z-index: 10;
+}
+
+/* 2. Metric Badge - Small, pill or rect tags */
+.metric-badge {
+  @apply px-2 py-0.5 text-xs font-mono font-medium uppercase tracking-wider;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: hsl(var(--muted-foreground));
+}
+
+.metric-badge.active {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: hsl(var(--primary));
+}
+
+/* 3. Scan Line Animation */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(34, 197, 94, 0.1), transparent);
+  pointer-events: none;
+  animation: scan 4s linear infinite;
+  opacity: 0.3;
+}
+
+/* Scrollbar - Minimal */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Utility: Grid lines on elements */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Neo-Glass Utilities */
+.glass {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+}
+
+.glass-card:hover {
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(34, 197, 94, 0.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  color: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
