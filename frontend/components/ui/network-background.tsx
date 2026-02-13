@@ -45,10 +45,26 @@ export function NetworkBackground() {
         window.addEventListener("resize", handleResize)
         window.addEventListener("mousemove", handleMouseMove)
 
+        // Load Logo Image
+        const logoImg = new Image()
+        logoImg.src = "/gfg-official-logo.png"
+
         let time = 0
         const animate = () => {
             time += 0.05
             ctx.clearRect(0, 0, width, height)
+
+            // Draw Logo Watermark (Centered & Faded)
+            if (logoImg.complete) {
+                const logoSize = Math.min(width, height) * 0.4
+                const logoX = (width - logoSize) / 2
+                const logoY = (height - logoSize) / 2
+
+                ctx.save()
+                ctx.globalAlpha = 0.03 // Very subtle
+                ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize)
+                ctx.restore()
+            }
 
             // Update and draw particles
             particles.forEach((p, i) => {

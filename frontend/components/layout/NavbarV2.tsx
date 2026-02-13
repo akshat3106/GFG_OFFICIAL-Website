@@ -2,53 +2,36 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { motion, AnimatePresence, useScroll, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Menu, X, Terminal, ChevronRight, Command, Zap } from "lucide-react"
+import { Menu, X, Zap } from "lucide-react"
 import { JoinModal } from "@/components/features/JoinModal"
 
 export function NavbarV2() {
     const [scrolled, setScrolled] = useState(false)
-    const [isExpanded, setIsExpanded] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [showJoinModal, setShowJoinModal] = useState(false)
+    const [hoveredLink, setHoveredLink] = useState<string | null>(null)
     const router = useRouter()
-    const { scrollY } = useScroll()
-
-    // Dynamic Island Physics
-    const width = useSpring(60, { stiffness: 300, damping: 30 })
-    const height = useSpring(60, { stiffness: 300, damping: 30 })
-    const borderRadius = useSpring(30, { stiffness: 300, damping: 30 })
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20)
-            if (window.scrollY > 100 && isExpanded) {
-                setIsExpanded(false)
-            }
         }
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
-    }, [isExpanded])
-
-    useEffect(() => {
-        if (isExpanded) {
-            width.set(800) // Expanded width
-            height.set(80) // Expanded height
-            borderRadius.set(40)
-        } else {
-            width.set(scrolled ? 180 : 600) // Collapsed width logic
-            height.set(60)
-            borderRadius.set(30)
-        }
-    }, [isExpanded, scrolled, width, height, borderRadius])
+    }, [])
 
     const navLinks = [
-        { label: "Home", href: "/", id: "01" },
-        { label: "Innovation", href: "#innovation", id: "02" },
-        { label: "Events", href: "#events", id: "03" },
-        { label: "Team", href: "#team", id: "04" },
+        { label: "Home", href: "/" },
+        { label: "Innovation", href: "#innovation" },
+        { label: "Events", href: "#events" },
+        { label: "Team", href: "#team" },
     ]
+
+
 
     const scrollToSection = (e: React.MouseEvent, href: string) => {
         if (href.startsWith('#')) {
@@ -56,7 +39,7 @@ export function NavbarV2() {
             const element = document.querySelector(href)
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' })
-                setIsExpanded(false)
+                setMobileMenuOpen(false)
             }
         }
     }
@@ -65,124 +48,119 @@ export function NavbarV2() {
         <>
             <JoinModal isOpen={showJoinModal} onClose={() => setShowJoinModal(false)} />
 
-            <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-start pointer-events-none">
+            {/* Floating Glass Dock */}
+            <header className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
                 <motion.div
-                    style={{
-                        width,
-                        height,
-                        borderRadius
-                    }}
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     className={cn(
-                        "pointer-events-auto relative bg-black/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-500",
-                        isExpanded ? "bg-black/90 border-primary/20 shadow-[0_20px_50px_rgba(0,255,128,0.1)]" : "hover:border-white/20"
+                        "pointer-events-auto flex items-center justify-between p-2 pl-4 pr-2 rounded-full border transition-all duration-300",
+                        scrolled
+                            ? "bg-black/80 backdrop-blur-xl border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-fit min-w-[320px] max-w-5xl gap-6"
+                            : "bg-transparent border-transparent w-full max-w-7xl"
                     )}
-                    onMouseEnter={() => !scrolled && setIsExpanded(true)}
-                    onMouseLeave={() => !scrolled && setIsExpanded(false)}
                 >
-                    {/* Inner Container */}
-                    <div className="absolute inset-0 flex items-center justify-between px-2">
+                    {/* Logo Section */}
+                    <Link href="/" className="flex items-center gap-2 group shrink-0">
+                        <div className="relative w-8 h-8 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 overflow-hidden group-hover:border-primary/50 transition-colors">
+                            <Image src="/gfg-official-logo.png" alt="GFG Logo" width={20} height={20} className="object-contain" />
+                        </div>
+                        <span className={cn(
+                            "font-space-grotesk font-bold text-sm tracking-wide hidden sm:block transition-all duration-300",
+                            scrolled ? "hidden lg:block" : "block"
+                        )}>
+                            GFG<span className="text-muted-foreground">ITER</span>
+                        </span>
+                    </Link>
 
-                        {/* Logo / Status */}
-                        <div
-                            className="flex items-center gap-3 cursor-pointer pl-4"
-                            onClick={() => router.push('/')}
-                        >
-                            <div className="relative w-8 h-8 flex items-center justify-center">
-                                <span className="font-mono font-bold text-lg text-white">&gt;_</span>
-                                {scrolled && !isExpanded && (
+                    {/* Desktop Navigation */}
+                    <nav className={cn(
+                        "hidden md:flex items-center gap-1 transition-all duration-300",
+                        scrolled ? "relative" : "absolute left-1/2 -translate-x-1/2"
+                    )}>
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={(e) => scrollToSection(e, link.href)}
+                                onMouseEnter={() => setHoveredLink(link.label)}
+                                onMouseLeave={() => setHoveredLink(null)}
+                                className="relative px-4 py-2 rounded-full text-xs font-medium text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {hoveredLink === link.label && (
                                     <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"
+                                        layoutId="navbar-pill"
+                                        className="absolute inset-0 bg-white/5 rounded-full"
+                                        initial={false}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                     />
                                 )}
-                            </div>
+                                <span className="relative z-10">{link.label}</span>
+                            </Link>
+                        ))}
+                    </nav>
 
-                            <AnimatePresence>
-                                {(isExpanded || !scrolled) && (
-                                    <motion.span
-                                        initial={{ opacity: 0, width: 0 }}
-                                        animate={{ opacity: 1, width: "auto" }}
-                                        exit={{ opacity: 0, width: 0 }}
-                                        className="font-mono font-bold text-sm tracking-wider whitespace-nowrap overflow-hidden"
-                                    >
-                                        GFG SYSTEM
-                                    </motion.span>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Navigation Links */}
-                        <AnimatePresence>
-                            {isExpanded && (
-                                <motion.nav
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1, transition: { delay: 0.1 } }}
-                                    exit={{ opacity: 0 }}
-                                    className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1"
-                                >
-                                    {navLinks.map((link) => (
-                                        <Link
-                                            key={link.href}
-                                            href={link.href}
-                                            onClick={(e) => scrollToSection(e, link.href)}
-                                            className="relative px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground hover:text-white hover:bg-white/10 transition-all duration-200"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    ))}
-                                </motion.nav>
-                            )}
-                        </AnimatePresence>
-
-                        {/* Actions */}
-                        <div className="flex items-center gap-2 pr-2">
-                            <AnimatePresence>
-                                {(isExpanded || !scrolled) && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.8 }}
-                                        className="flex items-center gap-2"
-                                    >
+                    {/* Right Actions */}
+                    <div className="flex items-center gap-3">
+                        {/* Social Icons (Desktop) */}
 
 
+                        {/* Join Button */}
+                        <button
+                            onClick={() => setShowJoinModal(true)}
+                            data-join-trigger
+                            className="group relative px-5 py-2 rounded-full bg-white text-black font-medium text-xs overflow-hidden transition-transform active:scale-95"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary via-white to-primary opacity-0 group-hover:opacity-20 transition-opacity" />
+                            <span className="relative flex items-center gap-2">
+                                Join Network
+                                <Zap className="w-3.5 h-3.5 fill-current" />
+                            </span>
+                        </button>
 
-                                        {/* Join Network Button */}
-                                        <button
-                                            data-join-trigger
-                                            onClick={() => setShowJoinModal(true)}
-                                            className="group relative px-4 py-1.5 bg-primary/10 hover:bg-primary text-primary hover:text-black border border-primary/20 hover:border-primary rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 overflow-hidden"
-                                        >
-                                            <span className="relative z-10 flex items-center gap-1.5">
-                                                <Zap className="w-3 h-3" />
-                                                JOIN NETWORK
-                                            </span>
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-
-                            {/* Mobile/Menu Trigger */}
-                            <button
-                                onClick={() => setIsExpanded(!isExpanded)}
-                                className="p-2 rounded-full hover:bg-white/5 transition-colors"
-                            >
-                                <motion.div
-                                    animate={{ rotate: isExpanded ? 90 : 0 }}
-                                >
-                                    {isExpanded ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                                </motion.div>
-                            </button>
-                        </div>
+                        {/* Mobile Menu Toggle */}
+                        <button
+                            className="md:hidden p-2 text-white/70 hover:text-white"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        >
+                            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
                     </div>
-
-                    {/* Progress Bar (Bottom Border) */}
-                    <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"
-                        style={{ width: '100%' }}
-                    />
                 </motion.div>
-            </div>
+            </header>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        className="fixed top-24 left-4 right-4 z-40 p-4 rounded-2xl bg-[#050505]/90 backdrop-blur-2xl border border-white/10 shadow-2xl md:hidden"
+                    >
+                        <div className="flex items-center justify-center mb-4">
+                            <Image src="/gfg-official-logo.png" alt="GFG Logo" width={32} height={32} className="object-contain" />
+                        </div>
+                        <nav className="flex flex-col gap-2">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={(e) => scrollToSection(e, link.href)}
+                                    className="p-4 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-medium text-white transition-colors"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                            <div className="h-px bg-white/10 my-2" />
+                            <Link href="/login" className="p-4 text-center text-sm text-muted-foreground hover:text-white">
+                                Member Login
+                            </Link>
+                        </nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     )
 }

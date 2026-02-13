@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Project } from "./types"
 import { ProjectCard } from "./ProjectCard"
 import { FilterBar } from "./FilterBar"
+import { StaggerContainer } from "@/components/ui/motion-wrapper"
 
 const DUMMY_PROJECTS: Project[] = [
     {
@@ -95,11 +96,11 @@ export function ProjectGallery() {
                     onSelect={setSelectedCategory}
                 />
 
-                <motion.div
+                <StaggerContainer
                     layout
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    <AnimatePresence>
+                    <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, index) => (
                             <ProjectCard
                                 key={project.id}
@@ -108,7 +109,7 @@ export function ProjectGallery() {
                             />
                         ))}
                     </AnimatePresence>
-                </motion.div>
+                </StaggerContainer>
             </div>
         </section>
     )

@@ -29,10 +29,14 @@ export function ProjectCard({ project, index, className }: ProjectCardProps) {
     return (
         <motion.div
             layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
+            variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } },
+                exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
+            }}
+            // initial="hidden" // Controlled by parent
+            // animate="show"   // Controlled by parent
+            exit="exit"
             className={cn(
                 "group relative bg-card border border-white/5 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300",
                 isFeatured ? "md:col-span-2 md:row-span-2" : "col-span-1",

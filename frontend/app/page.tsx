@@ -4,18 +4,18 @@ import { Footer } from "@/components/layout/Footer"
 import { HeroSectionV2 } from "@/components/features/HeroSectionV2"
 import { AboutSection } from "@/components/features/AboutSection"
 import { TracksSection } from "@/components/features/TracksSection"
-import { ProjectGallery } from "@/components/features/ProjectGallery"
 import { EventsSection } from "@/components/features/EventsSection"
-import { PastEventsSection } from "@/components/features/PastEventsSection"
+
 import { TeamSection } from "@/components/features/TeamSection"
 import { WelcomeSplash } from "@/components/features/WelcomeSplash"
-import { InstallCTA } from "@/components/features/InstallCTA"
+
 import { NetworkBackground } from "@/components/ui/network-background"
 import { StatsSection } from "@/components/features/StatsSection"
 import { MarqueeSection } from "@/components/features/MarqueeSection"
 import { FAQSection } from "@/components/features/FAQSection"
 import { EvolutionTimeline } from "@/components/features/EvolutionTimeline"
 import { BentoSection } from "@/components/features/BentoSection"
+import { FadeIn } from "@/components/ui/motion-wrapper"
 
 export default function Home() {
   return (
@@ -32,27 +32,26 @@ export default function Home() {
 
         <HeroSectionV2 />
 
-        <MarqueeSection />
+        <FadeIn delay={0.2}><MarqueeSection /></FadeIn>
 
-        <AboutSection />
+        <FadeIn delay={0.3}><AboutSection /></FadeIn>
 
-        <StatsSection />
+        <FadeIn delay={0.4}><StatsSection /></FadeIn>
 
-        <BentoSection />
+        <FadeIn delay={0.2}><BentoSection /></FadeIn>
 
-        <TracksSection />
+        <FadeIn delay={0.2}><TracksSection /></FadeIn>
 
-        <EvolutionTimeline />
+        <FadeIn delay={0.2}><EvolutionTimeline /></FadeIn>
 
-        <ProjectGallery />
 
         <EventsSection />
 
-        <TeamSection />
+        <FadeIn delay={0.2}><TeamSection /></FadeIn>
 
-        <InstallCTA />
 
-        <FAQSection />
+
+        <FadeIn delay={0.2}><FAQSection /></FadeIn>
 
         <Footer />
       </div>

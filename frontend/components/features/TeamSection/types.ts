@@ -1,8 +1,8 @@
 export interface TeamMember {
     id: string
     name: string
-    role: "President" | "Vice President" | "Tech Lead" | "Design Lead" | "Operation Lead" | "PR & Outreach" | "Member"
-    position: "leadership" | "lead" | "member"
+    role: "President" | "Vice President" | "Tech Lead" | "Design Lead" | "Operation Lead" | "PR & Outreach" | "Member" | "System Architect" | "Management Lead" | "Media Lead"
+    position: string
     photo: string
     email: string
     department?: string

@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { useInView, useMotionValue, useSpring } from "framer-motion"
 import { Users, Calendar, Code, Coffee } from "lucide-react"
+import { AnimatedCounter } from "@/components/ui/animated-counter"
 
 const STATS = [
     { label: "Active Members", value: 500, suffix: "+", icon: Users, color: "text-primary" },
@@ -10,33 +9,6 @@ const STATS = [
     { label: "Projects Built", value: 120, suffix: "+", icon: Code, color: "text-purple-400" },
     { label: "Coffee Consumed", value: 1000, suffix: "L", icon: Coffee, color: "text-orange-400" },
 ]
-
-function Counter({ value }: { value: number }) {
-    const ref = useRef<HTMLSpanElement>(null)
-    const motionValue = useMotionValue(0)
-    const springValue = useSpring(motionValue, {
-        damping: 50,
-        stiffness: 100,
-    })
-    const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-    useEffect(() => {
-        if (isInView) {
-            motionValue.set(value)
-        }
-    }, [isInView, value, motionValue])
-
-    useEffect(() => {
-        springValue.on("change", (latest) => {
-            if (ref.current) {
-                // Formatting number
-                ref.current.textContent = String(Math.floor(latest))
-            }
-        })
-    }, [springValue])
-
-    return <span ref={ref} />
-}
 
 export function StatsSection() {
     return (
@@ -52,7 +24,7 @@ export function StatsSection() {
                                 <stat.icon className="w-6 h-6" />
                             </div>
                             <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-space-grotesk group-hover:text-primary transition-colors text-glow">
-                                <Counter value={stat.value} />
+                                <AnimatedCounter end={stat.value} />
                                 {stat.suffix}
                             </div>
                             <div className="text-sm font-mono text-muted-foreground uppercase tracking-wider">

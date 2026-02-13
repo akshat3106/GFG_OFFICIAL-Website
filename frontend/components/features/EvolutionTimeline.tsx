@@ -60,28 +60,28 @@ export function EvolutionTimeline() {
 
     const colorClasses = {
         primary: {
-            bg: "bg-primary/10",
-            border: "border-primary/30",
-            text: "text-primary",
-            glow: "shadow-[0_0_40px_rgba(0,255,128,0.5)]",
-            gradient: "from-primary/20 to-transparent",
-            hoverBg: "hover:bg-primary/20"
+            bg: "bg-emerald-500/10",
+            border: "border-emerald-500/30",
+            text: "text-emerald-400",
+            glow: "shadow-[0_0_40px_rgba(16,185,129,0.5)]",
+            gradient: "from-emerald-500/20 to-transparent",
+            hoverBg: "hover:bg-emerald-500/20"
         },
         secondary: {
-            bg: "bg-secondary/10",
-            border: "border-secondary/30",
-            text: "text-secondary",
-            glow: "shadow-[0_0_40px_rgba(0,240,255,0.5)]",
-            gradient: "from-secondary/20 to-transparent",
-            hoverBg: "hover:bg-secondary/20"
+            bg: "bg-emerald-400/10",
+            border: "border-emerald-400/30",
+            text: "text-emerald-300",
+            glow: "shadow-[0_0_40px_rgba(52,211,153,0.5)]",
+            gradient: "from-emerald-400/20 to-transparent",
+            hoverBg: "hover:bg-emerald-400/20"
         },
         accent: {
-            bg: "bg-accent/10",
-            border: "border-accent/30",
-            text: "text-accent",
-            glow: "shadow-[0_0_40px_rgba(255,0,255,0.5)]",
-            gradient: "from-accent/20 to-transparent",
-            hoverBg: "hover:bg-accent/20"
+            bg: "bg-green-400/10",
+            border: "border-green-400/30",
+            text: "text-green-300",
+            glow: "shadow-[0_0_40px_rgba(74,222,128,0.5)]",
+            gradient: "from-green-400/20 to-transparent",
+            hoverBg: "hover:bg-green-400/20"
         }
     }
 
@@ -116,7 +116,7 @@ export function EvolutionTimeline() {
                     </motion.span>
                     <h2 className="text-5xl md:text-7xl font-bold font-space-grotesk mb-6">
                         <span className="text-primary">#</span> Evolution{" "}
-                        <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                        <span className="text-[#00FF80] drop-shadow-[0_0_10px_rgba(0,255,128,0.5)]">
                             Timeline
                         </span>
                     </h2>

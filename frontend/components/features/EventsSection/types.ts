@@ -21,10 +21,9 @@ export interface Event {
     time: string
     location: string
     category: "Workshop" | "Hackathon" | "Seminar" | "Competition" | "Networking" | "Tech Talk" | "Career"
-    type: "upcoming" | "past"
+    type: "upcoming"
     image?: string
 
-    // Upcoming specific
     registration?: {
         status: "Open" | "Closed" | "Waitlist"
         capacity: number
@@ -32,16 +31,6 @@ export interface Event {
         deadline: string
         link: string
     }
-
-    // Past specific
-    media?: {
-        photos: number
-        videos: number
-        gallery: MediaItem[]
-    }
-    participants?: number
-    highlights?: string[]
-    testimonials?: Testimonial[]
 
     tags: string[]
 }
