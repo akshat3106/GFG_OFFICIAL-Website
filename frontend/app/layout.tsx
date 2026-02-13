@@ -25,6 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gfg-official.github.io/GFG_OFFICIAL-Website/"),
   title: {
     default: "GFG Student Chapter | ITER",
     template: "%s | GFG SC ITER"
