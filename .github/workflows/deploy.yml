@@ -48,6 +48,9 @@ jobs:
       - name: Build with Next.js
         run: cd frontend && npm run build
 
+      - name: Create .nojekyll to bypass Jekyll processing
+        run: touch frontend/out/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
