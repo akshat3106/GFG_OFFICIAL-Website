@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/utils/supabase/client"
 import Image from "next/image"
+// @ts-ignore
+import gfgLogo from "@/assets/gfg-logo.svg"
 
 export function MemberNavbar() {
     const router = useRouter()
@@ -20,7 +22,7 @@ export function MemberNavbar() {
         <div className="flex items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
             <div className="flex items-center gap-3 font-bold text-xl">
                 <div className="relative w-9 h-9">
-                    <Image src="/gfg-logo.svg" alt="GFG Logo" fill className="object-contain" />
+                    <Image src={gfgLogo} alt="GFG Logo" fill className="object-contain" />
                 </div>
                 <span className="font-mono tracking-tight text-white">{`{ GFG Student Chapter }`}</span>
             </div>

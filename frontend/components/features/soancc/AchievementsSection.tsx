@@ -59,7 +59,7 @@ export default function AchievementsSection() {
 
     return (
         <section id="achievements" className="py-24 bg-[#0b1f4b] text-white overflow-hidden relative">
-            <div className="absolute inset-0 bg-[url('/media/pattern.png')] opacity-5 mix-blend-overlay"></div>
+
 
             <div className="max-w-7xl mx-auto px-5 relative z-10">
                 <div className="text-center mb-16">

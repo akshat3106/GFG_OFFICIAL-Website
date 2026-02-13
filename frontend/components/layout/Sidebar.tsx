@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/utils/supabase/client"
+// @ts-ignore
+import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 import {
     LayoutDashboard,
     Calendar,
@@ -52,8 +54,8 @@ export function Sidebar() {
             {/* Mobile Trigger */}
             <div className="md:hidden p-4 border-b border-white/10 flex items-center justify-between bg-black/80 backdrop-blur-md sticky top-0 z-40">
                 <div className="flex items-center gap-2">
-                    <div className="relative w-8 h-8">
-                        <Image src="/gfg-official-logo.png" alt="GFG Logo" fill className="object-contain" />
+                    <div className="relative w-8 h-8 mr-3 shrink-0">
+                        <Image src={gfgOfficialLogo} alt="GFG Logo" fill className="object-contain" />
                     </div>
                     <div className="font-bold text-xl text-primary font-heading tracking-tighter">{`GFG SC ITER`}</div>
                 </div>
@@ -92,7 +94,7 @@ function SidebarContent({ pathname, setOpen, onLogout }: { pathname: string; set
                 <div className="flex items-center gap-3 mb-2">
                     <div className="relative w-10 h-10 group cursor-pointer transition-transform hover:scale-105">
                         <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Image src="/gfg-official-logo.png" alt="GFG Logo" fill className="object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.5)] relative z-10" />
+                        <Image src={gfgOfficialLogo} alt="GFG Logo" fill className="object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.5)] relative z-10" />
                     </div>
                     <div>
                         <span className="text-xl font-bold font-heading tracking-tighter text-white block leading-none">{`GFG SC`}</span>

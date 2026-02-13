@@ -7,6 +7,8 @@ import { LogOut, Terminal, Shield, Home } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
 import { createClient } from "@/utils/supabase/client"
 import { cn } from "@/lib/utils"
+// @ts-ignore
+import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 
 export function MemberHeader() {
     const router = useRouter()
@@ -41,7 +43,7 @@ export function MemberHeader() {
                 <div className="flex items-center gap-4 group cursor-pointer" onClick={() => router.push('/dashboard')}>
                     <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                         <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse" />
-                        <Image src="/gfg-official-logo.png" alt="GFG Logo" fill className="object-contain drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
+                        <Image src={gfgOfficialLogo} alt="GFG Logo" fill className="object-contain drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
                     </div>
                     <div className="hidden sm:block">
                         <div className="font-bold text-xl text-white font-heading tracking-tight group-hover:text-primary transition-colors">

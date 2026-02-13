@@ -4,6 +4,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useRef, useState } from "react"
 import NextImage from "next/image"
 import { cn } from "@/lib/utils"
+// @ts-ignore
+import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 
 interface TeamMember {
     name: string
@@ -165,7 +167,7 @@ export const HolographicCard = ({ member, index }: { member: TeamMember, index: 
 
                     {/* GFG Mini Logo Watermark */}
                     <div className="absolute top-2 left-2 w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                        <NextImage src="/gfg-official-logo.png" alt="GFG" fill className="object-contain grayscale group-hover:grayscale-0" />
+                        <NextImage src={gfgOfficialLogo} alt="GFG" fill className="object-contain grayscale group-hover:grayscale-0" />
                     </div>
                 </div>
 
