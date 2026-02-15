@@ -8,7 +8,7 @@ import { FadeIn, StaggerContainer } from "@/components/ui/motion-wrapper"
 
 export function BentoSection() {
     return (
-        <section className="relative py-32 overflow-hidden bg-background" id="innovation">
+        <section className="relative py-[8vh] overflow-hidden bg-background min-h-screen flex items-center" id="innovation">
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
 
@@ -18,22 +18,22 @@ export function BentoSection() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-[4vh]"
                 >
                     <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/5 border border-secondary/20 backdrop-blur-md mb-6 text-xs font-mono text-secondary font-bold tracking-[0.3em] uppercase">
                         OUR IMPACT
                     </span>
-                    <h2 className="text-4xl md:text-6xl font-bold font-space-grotesk mb-6">
+                    <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold font-space-grotesk mb-6">
                         <span className="text-secondary">#</span> Chapter Highlights
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+                    <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto font-light">
                         Celebrating excellence across Tech, Design, Outreach, and Operations
                     </p>
                 </motion.div>
 
                 {/* Bento Grid */}
                 <StaggerContainer className="max-w-7xl mx-auto" delay={0.2}>
-                    <BentoGrid className="auto-rows-[240px]">
+                    <BentoGrid className="auto-rows-[minmax(180px,auto)] md:auto-rows-[220px]">
                         {/* Tech Innovation (2x2) - Top Left */}
                         <FadeIn>
                             <BentoCard

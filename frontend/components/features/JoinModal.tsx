@@ -6,7 +6,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 // @ts-ignore
-import gfgLogo from "@/assets/gfg-logo.svg"
+import gfgLogo from "@/assets/gfg-official-logo.png"
 
 interface JoinModalProps {
     isOpen: boolean

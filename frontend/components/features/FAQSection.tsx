@@ -31,13 +31,13 @@ export function FAQSection() {
     const [openIndex, setOpenIndex] = useState<number | null>(0)
 
     return (
-        <section className="relative py-24 bg-background overflow-hidden" id="faq">
+        <section className="relative py-[6vh] bg-background overflow-hidden min-h-screen flex items-center" id="faq">
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
             <div className="absolute -left-40 top-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="container relative z-10 px-6 max-w-4xl mx-auto">
-                <div className="text-center mb-16 space-y-4">
+                <div className="text-center mb-[4vh] space-y-4">
                     <h2 className="text-4xl md:text-5xl font-bold font-space-grotesk">
                         Frequent <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Queries</span>
                     </h2>

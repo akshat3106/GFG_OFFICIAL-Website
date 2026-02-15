@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { LogOut, Terminal, Shield, Home } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
-import { createClient } from "@/utils/supabase/client"
 import { cn } from "@/lib/utils"
 // @ts-ignore
 import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
@@ -13,18 +12,11 @@ import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 export function MemberHeader() {
     const router = useRouter()
     const pathname = usePathname()
-    const supabase = createClient()
 
     const handleLogout = async () => {
-        try {
-            const { error } = await supabase.auth.signOut()
-            if (error) throw error
-            router.push("/login")
-            router.refresh()
-        } catch (error) {
-            console.error("Logout failed:", error)
-            router.push("/login")
-        }
+        // Navigate to login page
+        router.push("/login")
+        router.refresh()
     }
 
     const navLinks = [

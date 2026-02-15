@@ -8,7 +8,7 @@ const TECHNOLOGIES = [
 
 export function MarqueeSection() {
     return (
-        <section className="relative w-full border-y border-white/5 bg-background/50 backdrop-blur-sm overflow-hidden py-6">
+        <section className="relative w-full border-y border-white/5 bg-background/50 backdrop-blur-sm overflow-hidden py-3 md:py-4">
             <div className="flex w-full whitespace-nowrap overflow-hidden mask-fade-sides">
                 <div className="flex animate-marquee gap-16 min-w-full items-center justify-around px-8">
                     {[...TECHNOLOGIES, ...TECHNOLOGIES].map((tech, i) => (

@@ -3,6 +3,7 @@
 import { Github, Twitter, Linkedin, Mail, Heart, Terminal } from "lucide-react"
 import Link from "next/link";
 import Image from "next/image";
+import gfgLogo from "@/public/gfg-official-logo.png";
 import { Command } from "lucide-react";
 
 export function Footer() {
@@ -24,18 +25,18 @@ export function Footer() {
     ]
 
     return (
-        <footer className="relative bg-black border-t border-white/10 pt-20 pb-10 overflow-hidden">
+        <footer className="relative bg-black border-t border-white/10 pt-[6vh] pb-[3vh] overflow-hidden">
             {/* Grid Background */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
             <div className="container relative z-10 px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-[4vh]">
                     {/* Brand */}
                     <div className="md:col-span-1 space-y-6">
                         <div className="flex items-center gap-2 text-2xl font-bold font-space-grotesk tracking-tighter">
                             <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 overflow-hidden relative">
                                 <Image
-                                    src="/gfg-official-logo.png"
+                                    src={gfgLogo}
                                     alt="GFG Logo"
                                     fill
                                     className="object-contain p-2"

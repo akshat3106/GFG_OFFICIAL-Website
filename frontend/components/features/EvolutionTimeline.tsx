@@ -86,7 +86,7 @@ export function EvolutionTimeline() {
     }
 
     return (
-        <section className="relative py-32 overflow-hidden bg-background" id="evolution">
+        <section className="relative py-[8vh] overflow-hidden bg-background min-h-screen flex items-center" id="evolution">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary)/0.05),transparent_70%)]" />
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
@@ -103,7 +103,7 @@ export function EvolutionTimeline() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-[5vh]"
                 >
                     <motion.span
                         initial={{ scale: 0.9, opacity: 0 }}

@@ -1,7 +1,7 @@
-import { NavbarV2 } from "@/components/layout/NavbarV2"
+import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 
-import { HeroSectionV2 } from "@/components/features/HeroSectionV2"
+import { HeroSection } from "@/components/features/HeroSection"
 import { AboutSection } from "@/components/features/AboutSection"
 import { TracksSection } from "@/components/features/TracksSection"
 import { EventsSection } from "@/components/features/EventsSection"
@@ -28,9 +28,9 @@ export default function Home() {
 
       <div className="relative z-10 flex flex-col">
         <WelcomeSplash />
-        <NavbarV2 />
+        <Navbar />
 
-        <HeroSectionV2 />
+        <HeroSection />
 
         <FadeIn delay={0.2}><MarqueeSection /></FadeIn>
 

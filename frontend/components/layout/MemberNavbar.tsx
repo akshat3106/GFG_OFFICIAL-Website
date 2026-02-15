@@ -3,18 +3,16 @@
 import { LogOut, User, Terminal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/utils/supabase/client"
 import Image from "next/image"
 // @ts-ignore
-import gfgLogo from "@/assets/gfg-logo.svg"
+import gfgLogo from "@/assets/gfg-official-logo.png"
 import { motion } from "framer-motion"
 
 export function MemberNavbar() {
     const router = useRouter()
-    const supabase = createClient()
 
     const handleLogout = async () => {
-        await supabase.auth.signOut()
+        // Navigate to login page
         router.push("/login")
         router.refresh()
     }

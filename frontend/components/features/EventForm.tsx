@@ -19,7 +19,6 @@ import { Switch } from "@/components/ui/switch"
 import { toast } from "sonner"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
-import { createClient } from "@/utils/supabase/client"
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -52,21 +51,14 @@ export function EventForm({ onSuccess }: { onSuccess?: () => void }) {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true)
         try {
-            const supabase = createClient()
-            const { error } = await supabase.from('events').insert({
+            // TODO: Connect to backend when ready
+            console.log("Event data:", {
                 title: values.title,
                 date: new Date(values.date).toISOString(),
                 description: values.description,
-                // TODO: [SCHEMA_MISMATCH] The database expects 'video_url' but the form collects an 'imageUrl'. 
-                // We are mapping this temporarily until the backend schema is updated to support 'image_url' or 'banner_url'.
-                video_url: values.imageUrl,
+                imageUrl: values.imageUrl,
                 visibility: values.isPublic ? 'public' : 'internal'
             })
-
-            if (error) {
-                console.error("Supabase Error:", error)
-                throw new Error(error.message)
-            }
 
             toast.success("Event created successfully!")
             form.reset()

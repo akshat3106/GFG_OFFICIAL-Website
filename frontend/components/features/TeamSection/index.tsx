@@ -112,7 +112,7 @@ export function TeamSection() {
     const leads = DUMMY_TEAM.filter(m => !["President", "Vice President"].includes(m.role))
 
     return (
-        <section id="system-architects" className="py-24 bg-[#030303] relative overflow-hidden min-h-screen">
+        <section id="team" className="py-[8vh] bg-[#030303] relative overflow-hidden min-h-screen flex items-center">
 
             {/* Neural Background Matrix */}
             <div className="absolute inset-0 pointer-events-none">
@@ -132,7 +132,7 @@ export function TeamSection() {
             <div className="container relative z-10 mx-auto px-4">
 
                 {/* Section Header */}
-                <div className="text-center mb-24 relative">
+                <div className="text-center mb-[5vh] relative">
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ export function TeamSection() {
                 </div>
 
                 {/* HIERARCHY LEVEL 1: COMMAND & CONTROL (President & VP) */}
-                <div className="relative mb-24">
+                <div className="relative mb-[5vh]">
                     {/* Connecting Platform */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-32 bg-emerald-500/5 blur-3xl rounded-[100%] pointer-events-none" />
 

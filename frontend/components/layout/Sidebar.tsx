@@ -5,7 +5,6 @@ import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/utils/supabase/client"
 // @ts-ignore
 import gfgOfficialLogo from "@/assets/gfg-official-logo.png"
 import {
@@ -33,20 +32,12 @@ const sidebarLinks = [
 export function Sidebar() {
     const pathname = usePathname()
     const router = useRouter()
-    const supabase = createClient()
     const [open, setOpen] = useState(false)
 
     const handleLogout = async () => {
-        try {
-            const { error } = await supabase.auth.signOut()
-            if (error) throw error
-            router.push("/login")
-            router.refresh()
-        } catch (error) {
-            console.error("Logout Error:", error)
-            // fallback force redirect
-            router.push("/login")
-        }
+        // Navigate to login page
+        router.push("/login")
+        router.refresh()
     }
 
     return (

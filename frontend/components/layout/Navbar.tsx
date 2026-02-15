@@ -2,23 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
+import gfgLogo from "@/public/gfg-official-logo.png"
 import { useRouter } from "next/navigation"
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Menu, X, Terminal, ChevronRight } from "lucide-react"
+import { Menu, X, Zap } from "lucide-react"
 import { JoinModal } from "@/components/features/JoinModal"
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [showJoinModal, setShowJoinModal] = useState(false)
+    const [hoveredLink, setHoveredLink] = useState<string | null>(null)
     const router = useRouter()
-    const { scrollYProgress } = useScroll()
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    })
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,11 +26,13 @@ export function Navbar() {
     }, [])
 
     const navLinks = [
-        { label: "Home", href: "/", id: "01" },
-        { label: "Innovation", href: "#innovation", id: "02" },
-        { label: "Events", href: "#events", id: "03" },
-        { label: "Team", href: "#team", id: "04" },
+        { label: "Home", href: "/" },
+        { label: "Innovation", href: "#innovation" },
+        { label: "Events", href: "#events" },
+        { label: "Team", href: "#team" },
     ]
+
+
 
     const scrollToSection = (e: React.MouseEvent, href: string) => {
         if (href.startsWith('#')) {
@@ -41,127 +40,129 @@ export function Navbar() {
             const element = document.querySelector(href)
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' })
-                setIsOpen(false)
+                setMobileMenuOpen(false)
             }
         }
+        // For non-hash links like "/", allow default navigation
     }
 
     return (
         <>
             <JoinModal isOpen={showJoinModal} onClose={() => setShowJoinModal(false)} />
 
-            {/* Scroll Progress Bar */}
-            <motion.div
-                className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-purple-500 to-primary z-[60] origin-left"
-                style={{ scaleX }}
-            />
-
-            <motion.header
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 40, damping: 20, delay: 0.5 }}
-                className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none"
-            >
-                <div
+            {/* Floating Glass Dock */}
+            <header className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
+                <motion.div
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     className={cn(
-                        "pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center justify-between",
-                        "backdrop-blur-xl border",
+                        "pointer-events-auto flex items-center justify-between p-2 pl-4 pr-2 rounded-full border transition-all duration-300",
                         scrolled
-                            ? "w-[90%] md:w-[600px] rounded-full bg-black/40 border-white/5 shadow-[0_8px_32px_rgba(0,255,128,0.15)] px-4 py-2"
-                            : "w-[95%] max-w-7xl bg-transparent border-transparent px-6 py-4"
+                            ? "bg-black/80 backdrop-blur-xl border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-fit min-w-[320px] max-w-5xl gap-6"
+                            : "bg-transparent border-transparent w-full max-w-7xl"
                     )}
                 >
-                    {/* Logo Area */}
-                    <div
-                        className="flex items-center gap-3 cursor-pointer group"
-                        onClick={() => router.push('/')}
-                    >
-                        <div className="w-10 h-10 flex items-center justify-center bg-black/50 rounded-xl border border-white/10 text-primary font-mono font-bold text-lg group-hover:bg-primary group-hover:text-black transition-all duration-300 relative overflow-hidden shadow-lg">
-                            <span className="z-10">&gt;_</span>
-                            <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    {/* Logo Section */}
+                    <button onClick={() => router.push('/')} className="flex items-center gap-2 group shrink-0 cursor-pointer">
+                        <div className="relative w-8 h-8 flex items-center justify-center bg-white/5 rounded-lg border border-white/10 overflow-hidden group-hover:border-primary/50 transition-colors">
+                            <Image src={gfgLogo} alt="GFG Logo" width={20} height={20} className="object-contain" />
                         </div>
-                    </div>
+                        <span className={cn(
+                            "font-space-grotesk font-bold text-sm tracking-wide hidden sm:block transition-all duration-300",
+                            scrolled ? "hidden lg:block" : "block"
+                        )}>
+                            GFG<span className="text-muted-foreground">ITER</span>
+                        </span>
+                    </button>
 
-                    {/* Desktop Nav - Dynamic visibility based on scroll */}
+                    {/* Desktop Navigation */}
                     <nav className={cn(
-                        "hidden md:flex items-center gap-1 transition-all duration-500",
-                        scrolled ? "absolute left-1/2 -translate-x-1/2" : ""
+                        "hidden md:flex items-center gap-1 transition-all duration-300",
+                        scrolled ? "relative" : "absolute left-1/2 -translate-x-1/2"
                     )}>
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                onClick={(e) => scrollToSection(e, link.href)}
-                                className={cn(
-                                    "relative px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest transition-all duration-300",
-                                    "text-muted-foreground hover:text-white hover:bg-white/5"
-                                )}
+                                {...(link.href.startsWith('#') && { onClick: (e) => scrollToSection(e, link.href) })}
+                                onMouseEnter={() => setHoveredLink(link.label)}
+                                onMouseLeave={() => setHoveredLink(null)}
+                                className="relative px-4 py-2 rounded-full text-xs font-medium text-muted-foreground hover:text-white transition-colors"
                             >
-                                {link.label}
+                                {hoveredLink === link.label && (
+                                    <motion.div
+                                        layoutId="navbar-pill"
+                                        className="absolute inset-0 bg-white/5 rounded-full"
+                                        initial={false}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                )}
+                                <span className="relative z-10">{link.label}</span>
                             </Link>
                         ))}
                     </nav>
 
-                    {/* Actions */}
-                    <div className="hidden md:flex items-center gap-3">
+                    {/* Right Actions */}
+                    <div className="flex items-center gap-3">
+                        {/* Social Icons (Desktop) */}
+
+
+                        {/* Join Button */}
                         <button
                             onClick={() => setShowJoinModal(true)}
-                            className="relative px-4 py-1.5 overflow-hidden bg-white/5 rounded-full text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/10 hover:bg-primary hover:text-black hover:border-primary transition-all duration-300 group"
+                            data-join-trigger
+                            className="group relative px-5 py-2 rounded-full bg-white text-black font-medium text-xs overflow-hidden transition-transform active:scale-95"
                         >
-                            <span className="relative z-10 flex items-center gap-2">
-                                JOIN
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary via-white to-primary opacity-0 group-hover:opacity-20 transition-opacity" />
+                            <span className="relative flex items-center gap-2">
+                                Join Network
+                                <Zap className="w-3.5 h-3.5 fill-current" />
                             </span>
                         </button>
-                    </div>
 
-                    {/* Mobile Toggle */}
-                    <button
-                        className="md:hidden p-2 text-foreground hover:text-primary transition-colors z-50 rounded-full bg-white/5"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                    </button>
-                </div>
-
-                {/* Mobile Nav Overlay */}
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                            className="fixed top-24 left-4 right-4 bg-[#0A0A0A]/95 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden md:hidden z-40 pointer-events-auto p-4 shadow-2xl"
+                        {/* Mobile Menu Toggle */}
+                        <button
+                            className="md:hidden p-2 text-white/70 hover:text-white"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
-                            <div className="flex flex-col space-y-1">
-                                {navLinks.map((link) => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        onClick={(e) => scrollToSection(e, link.href)}
-                                        className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
-                                    >
-                                        <span className="font-mono text-muted-foreground group-hover:text-white transition-colors font-bold uppercase tracking-wider text-sm flex items-center gap-3">
-                                            <span className="text-[10px] text-primary/50">0{link.id}</span>
-                                            {link.label}
-                                        </span>
-                                        <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-colors" />
-                                    </Link>
-                                ))}
-                                <div className="h-px bg-white/5 my-2" />
-                                <button
-                                    onClick={() => {
-                                        setIsOpen(false)
-                                        setShowJoinModal(true)
-                                    }}
-                                    className="w-full mt-2 bg-primary text-black font-space-grotesk font-bold py-3 rounded-xl uppercase tracking-wider text-sm hover:bg-primary/90 transition-colors"
+                            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
+                    </div>
+                </motion.div>
+            </header>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        className="fixed top-24 left-4 right-4 z-40 p-4 rounded-2xl bg-[#050505]/90 backdrop-blur-2xl border border-white/10 shadow-2xl md:hidden"
+                    >
+                        <div className="flex items-center justify-center mb-4">
+                            <Image src="/gfg-official-logo.png" alt="GFG Logo" width={32} height={32} className="object-contain" />
+                        </div>
+                        <nav className="flex flex-col gap-2">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    {...(link.href.startsWith('#') && { onClick: (e) => scrollToSection(e, link.href) })}
+                                    className="p-4 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-medium text-white transition-colors"
                                 >
-                                    Join Network
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.header>
+                                    {link.label}
+                                </Link>
+                            ))}
+                            <div className="h-px bg-white/10 my-2" />
+                            <Link href="/login" className="p-4 text-center text-sm text-muted-foreground hover:text-white">
+                                Member Login
+                            </Link>
+                        </nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     )
 }

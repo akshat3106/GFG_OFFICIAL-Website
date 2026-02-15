@@ -8,7 +8,7 @@ import { GradientText } from "@/components/ui/gradient-text"
 
 export function AboutSection() {
     return (
-        <section className="relative py-32 overflow-hidden bg-background">
+        <section className="relative py-[8vh] overflow-hidden bg-background min-h-screen flex items-center">
             {/* Background Decorations */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-1/3 h-full bg-secondary/5 blur-[120px] pointer-events-none" />

@@ -23,6 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
   display: "swap",
 });
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gfg-official.github.io/GFG_OFFICIAL-Website/"),
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "GFG Student Chapter ITER",
     images: [
       {
-        url: "/og-image.png",
+        url: `${basePath}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "GFG Student Chapter ITER"
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/gfg-official-logo.png",
-    shortcut: "/gfg-official-logo.png",
-    apple: "/gfg-official-logo.png",
+    icon: `${basePath}/gfg-official-logo.png`,
+    shortcut: `${basePath}/gfg-official-logo.png`,
+    apple: `${basePath}/gfg-official-logo.png`,
   },
 };
 
