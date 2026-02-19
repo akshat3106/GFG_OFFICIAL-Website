@@ -5,7 +5,8 @@ import { X, Command, MessageCircle, Instagram, Linkedin, Mail, Twitter, ChevronR
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
-// @ts-expect-error logo import
+
+// REMOVED the @ts-ignore / @ts-expect-error comment from here
 import gfgLogo from "@/assets/gfg-official-logo.png"
 
 interface JoinModalProps {
@@ -90,7 +91,9 @@ export function JoinModal({ isOpen, onClose }: JoinModalProps) {
                                     Join the Network
                                 </h3>
 
-                                We&apos;re preparing for the next intake. Connect with us to stay updated and be part of something extraordinary.
+                                <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-[280px]">
+                                    We're preparing for the next intake. Connect with us to stay updated and be part of something extraordinary.
+                                </p>
 
                                 {/* Terminal Snippet */}
                                 <div
