@@ -78,7 +78,7 @@ export function AboutSection() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <GlassCard className="p-6 h-full hover:border-primary/50 transition-colors group">
+                            <GlassCard className="p-6 hover:border-primary/50 transition-colors group">
                                 <div className={cn(
                                     "w-12 h-12 rounded-lg bg-gradient-to-br flex items-center justify-center mb-4",
                                     feature.color
